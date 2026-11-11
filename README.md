@@ -1,18 +1,37 @@
 # Code_visualiser
 
+## Description
+
+Code_visualiser shows what a C++ program does while it runs. The program runs on one thread, and a
+window (made with Ogre 3D) draws it as an animated flowchart on another: statements, `if` and `switch`
+forks, loops, function calls (as boxes), input and output appear as the program reaches them, and a
+pulsing marker shows where execution is. The program is held back so it never runs far ahead of the
+animation, and you can pause, change the speed, step back and forward, and save a run to replay later.
+
+To show your own program, the instrumenter (`instrumenter/`) adds markers to a copy of your file; no
+other change to your code is needed. Only Windows with Visual Studio and Ogre 14 has been tried.
+
+| Folder | What is in it |
+|---|---|
+| `app/` | `CMakeLists.txt` and the `.cfg` files |
+| `include/`, `src/` | Header and source files |
+| `tests/` | The tests |
+| `instrumenter/` | The tool that adds the markers to your own C++ file |
+| `runs/`, `screenshots/` | Where saved runs and screenshots go |
+
 ## Installation
 
 Three steps on a clean Windows 10/11 machine: install the tools, build Ogre 14 once, then build the visualiser.
 
 ### Step 1: Install the tools
 
-| Tool | Notes | Download |
-| --- | --- | --- |
-| Visual Studio Community (2022 or 2026) | Tick "Desktop development with C++" | [visualstudio.microsoft.com/downloads](https://visualstudio.microsoft.com/downloads/) |
-| CMake | Tick "Add CMake to the PATH". Visual Studio 2026 needs CMake 4.2 or newer | [cmake.org/download](https://cmake.org/download/) |
-| Git | Defaults are fine | [git-scm.com/downloads](https://git-scm.com/downloads) |
-| Python 3.8+ (optional) | Only for visualising your own programs, not the built-in demo. Add to PATH | [python.org/downloads](https://www.python.org/downloads/) |
-| LLVM/Clang (optional) | Only for visualising your own programs, not the built-in demo. Add to PATH | [github.com/llvm/llvm-project/releases](https://github.com/llvm/llvm-project/releases) |
+| Tool | Download |
+| --- | --- |
+| Visual Studio Community (2022 or 2026) | [visualstudio.microsoft.com/downloads](https://visualstudio.microsoft.com/downloads/) |
+| CMake | [cmake.org/download](https://cmake.org/download/) |
+| Git | [git-scm.com/downloads](https://git-scm.com/downloads) |
+| Python 3.8+ (optional, for your own programs) | [python.org/downloads](https://www.python.org/downloads/) |
+| LLVM/Clang (optional, for your own programs) | [github.com/llvm/llvm-project/releases](https://github.com/llvm/llvm-project/releases) |
 
 ### Step 2: Build Ogre 14 (once, about 30 minutes)
 
@@ -182,24 +201,3 @@ Or run `ctest -C Release --output-on-failure` in the `build` folder.
 | `speed_test` | How much slower the markers make `fib(27)` |
 | `instrumenter_test` | The instrumenter; needs Python and Clang, skipped without them |
 | `config_test` | The config file reader; needs `-DCV_TEST_CONFIG=ON`, then run `build\tests\Release\config_test.exe` |
-
-## What the tool does
-
-Code_visualiser shows what a C++ program does while it runs. The program runs on one thread, and a
-window (made with Ogre 3D) draws it as an animated flowchart on another: statements, `if` and `switch`
-forks, loops, function calls (as boxes), input and output appear as the program reaches them, and a
-pulsing marker shows where execution is. The program is held back so it never runs far ahead of the
-animation, and you can pause, change the speed, step back and forward, and save a run to replay later.
-
-To show your own program, the instrumenter (`instrumenter/`) adds markers to a copy of your file; no
-other change to your code is needed. Only Windows with Visual Studio and Ogre 14 has been tried.
-
-| Folder | What is in it |
-|---|---|
-| `app/` | `CMakeLists.txt` and the `.cfg` files |
-| `include/`, `src/` | Header and source files |
-| `tests/` | The tests |
-| `instrumenter/` | The tool that adds the markers to your own C++ file |
-| `runs/`, `screenshots/` | Where saved runs and screenshots go |
-
-`run_tests.bat` in the project folder builds and tests everything.
